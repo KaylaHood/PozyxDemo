@@ -43,6 +43,8 @@ namespace PozyxMaster
 
 	void resetVariables();
 
+	boolean_t manualAnchorCalibration();
+
 	boolean_t pozyxSetup();
 
 	void printCoordinates(coordinates_t coor);

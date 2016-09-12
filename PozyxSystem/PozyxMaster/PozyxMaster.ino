@@ -24,10 +24,10 @@ namespace PozyxMaster
 	void errorBlinkLed()
 	{
 		// some error happened, blink LEDs on Curie and Pozyx
-		Arduino101LedBlink(status);
+		Arduino101LedBlink(status % 10);
 		if (status != POZYX_ERROR_LED) 
 		{
-			if (!PozyxLedBlink(status))
+			if (!PozyxLedBlink(status % 10))
 			{
 				status = POZYX_ERROR_LED;
 			}
@@ -93,6 +93,32 @@ namespace PozyxMaster
 		setupStatus = false;
 	}
 
+	boolean_t manualAnchorCalibration() {
+		boolean_t result = true;
+		device_coordinates_t anchor;
+		anchor.network_id = ANCHOR1_ID;
+		anchor.pos.x = ANCHOR1_X;
+		anchor.pos.y = ANCHOR1_Y;
+		anchor.pos.z = ANCHOR1_HEIGHT;
+		result = result && Pozyx.addDevice(anchor);
+		anchor.network_id = ANCHOR2_ID;
+		anchor.pos.x = ANCHOR2_X;
+		anchor.pos.y = ANCHOR2_Y;
+		anchor.pos.z = ANCHOR2_HEIGHT;
+		result = result && Pozyx.addDevice(anchor);
+		anchor.network_id = ANCHOR3_ID;
+		anchor.pos.x = ANCHOR3_X;
+		anchor.pos.y = ANCHOR3_Y;
+		anchor.pos.z = ANCHOR3_HEIGHT;
+		result = result && Pozyx.addDevice(anchor);
+		anchor.network_id = ANCHOR4_ID;
+		anchor.pos.x = ANCHOR4_X;
+		anchor.pos.y = ANCHOR4_Y;
+		anchor.pos.z = ANCHOR4_HEIGHT;
+		result = result && Pozyx.addDevice(anchor);
+		return result;
+	}
+
 	boolean_t pozyxSetup()
 	{
 		boolean_t result = true;
@@ -154,8 +180,19 @@ namespace PozyxMaster
 			result = false;
 		}
 
+		// KAYLA_DEBUG
+		Serial.println("KAYLA DEBUG - Manual Calibration");
 		uint8_t anchorCalibrationSuccess;
+		anchorCalibrationSuccess = manualAnchorCalibration();
+		delay(1000);
+		if (!anchorCalibrationSuccess) {
+			// error with "manualAnchorCalibration"
+			handleError("Something went wrong with \"manualAnchorCalibration\"");
+			result = false;
+		}
+		/*
 		anchorCalibrationSuccess = Pozyx.doAnchorCalibration(POZYX_2_5D, 10, POZYX_NUM_ANCHORS, anchors, anchor_heights);
+		
 		delay(1000);
 
 		if (!anchorCalibrationSuccess) 
@@ -164,7 +201,9 @@ namespace PozyxMaster
 			handleError("Something went wrong with \"doAnchorCalibration\"");
 			result = false;
 		}
-		
+		*/
+
+
 		uint8_t num_anchors = 0;
 		if (!Pozyx.getDeviceListSize(&num_anchors)) 
 		{

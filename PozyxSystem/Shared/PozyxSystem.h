@@ -25,10 +25,22 @@
 #define ANCHOR4_ID 0x6072
 
 // Pozyx Anchor heights (in mm)
-#define ANCHOR1_HEIGHT 0
-#define ANCHOR2_HEIGHT 503
-#define ANCHOR3_HEIGHT 264
-#define ANCHOR4_HEIGHT 191
+#define ANCHOR1_HEIGHT 2586
+#define ANCHOR2_HEIGHT 1344
+#define ANCHOR3_HEIGHT 1024
+#define ANCHOR4_HEIGHT 1475
+
+// Pozyx Anchor x coords (in mm)
+#define ANCHOR1_X 0
+#define ANCHOR2_X 0
+#define ANCHOR3_X 3447
+#define ANCHOR4_X 3237
+
+// Pozyx Anchor y coords (in mm)
+#define ANCHOR1_Y 0
+#define ANCHOR2_Y -4309
+#define ANCHOR3_Y -4186
+#define ANCHOR4_Y 273
 
 // Opcodes (8-bit)
 #define OPCODE_NORMAL 0x0
@@ -63,18 +75,18 @@ boolean_t PozyxLedBlink(int numBlinks)
 {
 	// -- only controls LED_3 --
 	// pattern:
-	// long 500 millisecond blink followed by <numBlinks> 100 millisecond blinks
+	// long 500 millisecond blink followed by <numBlinks> 50 millisecond blinks
 	int status = 0xF;
 	status &= Pozyx.setLed(3, 1);
 	delay(500);
 	status &= Pozyx.setLed(3, 0);
-	delay(200);
+	delay(50);
 	for (int i = 0;  i < numBlinks; i++) 
 	{
 		status &= Pozyx.setLed(3, 1);
-		delay(200);
+		delay(50);
 		status &= Pozyx.setLed(3, 0);
-		delay(200);
+		delay(50);
 	}
 	return (status == POZYX_SUCCESS);
 }
@@ -82,17 +94,17 @@ boolean_t PozyxLedBlink(int numBlinks)
 void Arduino101LedBlink(int numBlinks) 
 {
 	// pattern:
-	// long 500 millisecond blink followed by <numBlinks> 100 millisecond blinks
+	// long 500 millisecond blink followed by <numBlinks> 50 millisecond blinks
 	digitalWrite(13, HIGH);
 	delay(500);
 	digitalWrite(13, LOW);
-	delay(200);
+	delay(50);
 	for (int i = 0; i < numBlinks; i++) 
 	{
 		digitalWrite(13, HIGH);
-		delay(200);
+		delay(50);
 		digitalWrite(13, LOW);
-		delay(200);
+		delay(50);
 	}
 }
 
