@@ -97,21 +97,25 @@ namespace PozyxMaster
 		boolean_t result = true;
 		device_coordinates_t anchor;
 		anchor.network_id = ANCHOR1_ID;
+		anchor.flag = 0x01;
 		anchor.pos.x = ANCHOR1_X;
 		anchor.pos.y = ANCHOR1_Y;
 		anchor.pos.z = ANCHOR1_HEIGHT;
 		result = result && Pozyx.addDevice(anchor);
 		anchor.network_id = ANCHOR2_ID;
+		anchor.flag = 0x01;
 		anchor.pos.x = ANCHOR2_X;
 		anchor.pos.y = ANCHOR2_Y;
 		anchor.pos.z = ANCHOR2_HEIGHT;
 		result = result && Pozyx.addDevice(anchor);
 		anchor.network_id = ANCHOR3_ID;
+		anchor.flag = 0x01;
 		anchor.pos.x = ANCHOR3_X;
 		anchor.pos.y = ANCHOR3_Y;
 		anchor.pos.z = ANCHOR3_HEIGHT;
 		result = result && Pozyx.addDevice(anchor);
 		anchor.network_id = ANCHOR4_ID;
+		anchor.flag = 0x01;
 		anchor.pos.x = ANCHOR4_X;
 		anchor.pos.y = ANCHOR4_Y;
 		anchor.pos.z = ANCHOR4_HEIGHT;
@@ -173,12 +177,14 @@ namespace PozyxMaster
 			result = false;
 		}
 
+		/*
 		if (!Pozyx.doDiscovery(POZYX_DISCOVERY_ALL_DEVICES)) 
 		{
 			// error with doDiscovery
 			handleError("Something went wrong with \"doDiscovery\"");
 			result = false;
 		}
+		*/
 
 		// KAYLA_DEBUG
 		Serial.println("KAYLA DEBUG - Manual Calibration");
