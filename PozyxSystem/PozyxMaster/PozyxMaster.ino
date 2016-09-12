@@ -177,16 +177,8 @@ namespace PozyxMaster
 			result = false;
 		}
 
-		/*
-		if (!Pozyx.doDiscovery(POZYX_DISCOVERY_ALL_DEVICES)) 
-		{
-			// error with doDiscovery
-			handleError("Something went wrong with \"doDiscovery\"");
-			result = false;
-		}
-		*/
-
 		// KAYLA_DEBUG
+		/*
 		Serial.println("KAYLA DEBUG - Manual Calibration");
 		uint8_t anchorCalibrationSuccess;
 		anchorCalibrationSuccess = manualAnchorCalibration();
@@ -196,19 +188,16 @@ namespace PozyxMaster
 			handleError("Something went wrong with \"manualAnchorCalibration\"");
 			result = false;
 		}
-		/*
-		anchorCalibrationSuccess = Pozyx.doAnchorCalibration(POZYX_2_5D, 10, POZYX_NUM_ANCHORS, anchors, anchor_heights);
-		
+		*/
+		uint8_t anchorCalibrationSuccess;
+		anchorCalibrationSuccess = Pozyx.doAnchorCalibration(POZYX_2D, 10, POZYX_NUM_ANCHORS);
 		delay(1000);
-
 		if (!anchorCalibrationSuccess) 
 		{
 			// error with "doAnchorCalibration"
 			handleError("Something went wrong with \"doAnchorCalibration\"");
 			result = false;
 		}
-		*/
-
 
 		uint8_t num_anchors = 0;
 		if (!Pozyx.getDeviceListSize(&num_anchors)) 
@@ -231,12 +220,6 @@ namespace PozyxMaster
 			result = false;
 		}
 
-		if (!Pozyx.setSelectionOfAnchors(POZYX_ANCHOR_SEL_MANUAL, 4)) 
-		{
-			handleError("Something went wrong with \"setSelectionOfAnchors\"");
-			result = false;
-		}
-
 		return result;
 	}
 
@@ -247,9 +230,9 @@ namespace PozyxMaster
 		Serial.print("\t");
 		Serial.print("y_mm: ");
 		Serial.print(coor.y);
-		Serial.print("\t");
-		Serial.print("z_mm: ");
-		Serial.print(coor.z);
+		//Serial.print("\t");
+		//Serial.print("z_mm: ");
+		//Serial.print(coor.z);
 		Serial.println();
 	}
 
@@ -333,7 +316,7 @@ void loop()
 	{
 		// do positioning and orientation getting from each active tag
 		coordinates_t position;
-		uint8_t tmpStatus = Pozyx.doPositioning(&position, POZYX_3D);
+		uint8_t tmpStatus = Pozyx.doPositioning(&position, POZYX_2D);
 		delay(100);
 
 		if (tmpStatus != POZYX_SUCCESS)
