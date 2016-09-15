@@ -4,9 +4,9 @@
  Author:	kehood
 */
 
-
-#include "CPozyx_definitions.h"
-#include "CPozyx.h"
+#include <Pozyx_definitions.h>
+#include <Pozyx.h>
+#include <Wire.h>
 #include "PozyxSlave.h"
 
 namespace PozyxSlave 
@@ -25,28 +25,6 @@ namespace PozyxSlave
 
 	coordinates_t position;
 
-	void errorBlinkLed()
-	{
-		// some error happened, blink LEDs on Curie and Pozyx
-		Arduino101LedBlink(status);
-		if (status != POZYX_ERROR_LED) {
-			if (!PozyxLedBlink(status))
-			{
-				status = POZYX_ERROR_LED;
-			}
-		}
-	}
-
-	void errorSetStatus(uint8_t defaultErrorCode = POZYX_ERROR_GENERAL)
-	{
-		Pozyx.getErrorCode(&status);
-		if (status == POZYX_ERROR_NONE) 
-		{
-			status = defaultErrorCode;
-		}
-		return;
-	}
-
 	boolean_t pozyxSetup()
 	{
 		// clear all previous devices in the device list
@@ -56,7 +34,7 @@ namespace PozyxSlave
 			return false;
 		}
 
-		if (!Pozyx.doAnchorCalibration(POZYX_2_5D, 20, POZYX_NUM_ANCHORS, anchors, anchor_heights))
+		if (!Pozyx.doAnchorCalibration())
 		{
 			errorSetStatus(POZYX_ERROR_SETUP);
 			return false;

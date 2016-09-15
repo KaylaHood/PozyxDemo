@@ -4,10 +4,10 @@
  Author:	kehood
 */
 
-#include "CPozyx_definitions.h"
-#include "CPozyx.h"
-#include "PozyxMaster.h"
+#include <Pozyx_definitions.h>
+#include <Pozyx.h>
 #include <Wire.h>
+#include "PozyxMaster.h"
 
 namespace PozyxMaster 
 {
@@ -21,35 +21,6 @@ namespace PozyxMaster
 	// setupStatus is true if setupPozyx() has been run but resetVariables() has not
 	boolean_t setupStatus = false;
 
-	void errorBlinkLed()
-	{
-		// some error happened, blink LEDs on Curie and Pozyx
-		Arduino101LedBlink(status % 10);
-		if (status != POZYX_ERROR_LED) 
-		{
-			if (!PozyxLedBlink(status % 10))
-			{
-				status = POZYX_ERROR_LED;
-			}
-		}
-		return;
-	}
-
-	void errorSetStatus(uint8_t defaultErrorCode = POZYX_ERROR_GENERAL) 
-	{
-		if (!Pozyx.getErrorCode(&status)) 
-		{
-			Serial.println("Failed to retrieve error code from Pozyx");
-		}
-		if (status == POZYX_ERROR_NONE)
-		{
-			status = defaultErrorCode;
-		}
-		Serial.print("Error code status: 0x");
-		Serial.println(status,HEX);
-		return;
-	}
-
 	void handleError(const String& message, uint8_t defaultErrorCode = POZYX_ERROR_GENERAL) 
 	{
 		// print error information
@@ -57,7 +28,7 @@ namespace PozyxMaster
 		Serial.print("*****ERROR - ");
 		Serial.println(message);
 		Serial.println("*****");
-		errorSetStatus(defaultErrorCode);
+		errorSetStatus(defaultErrorCode, true);
 		return;
 	}
 

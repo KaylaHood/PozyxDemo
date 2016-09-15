@@ -1,9 +1,6 @@
 #ifndef POZYX_MULTITAG_POS_ORIENTATION_SERIAL_SYSTEM
 #define POZYX_MULTITAG_POS_ORIENTATION_SERIAL_SYSTEM
 
-#include "CPozyx_definitions.h"
-#include "CPozyx.h"
-
 // Constants
 #define POZYX_NUM_REMOTE_TAGS 2
 #define POZYX_NUM_ANCHORS 4
@@ -106,6 +103,39 @@ void Arduino101LedBlink(int numBlinks)
 		digitalWrite(13, LOW);
 		delay(50);
 	}
+}
+
+void errorBlinkLed()
+{
+	// some error happened, blink LEDs on Curie and Pozyx
+	Arduino101LedBlink(status % 10);
+	if (status != POZYX_ERROR_LED) {
+		if (!PozyxLedBlink(status % 10))
+		{
+			status = POZYX_ERROR_LED;
+		}
+	}
+}
+
+void errorSetStatus(uint8_t defaultErrorCode = POZYX_ERROR_GENERAL, boolean_t printEnabled = false)
+{
+	if (!Pozyx.getErrorCode(&status))
+	{
+		if (printEnabled) 
+		{
+			Serial.println("Failed to retrieve error code from Pozyx");
+		}
+	}
+	if (status == POZYX_ERROR_NONE)
+	{
+		status = defaultErrorCode;
+	}
+	if (printEnabled) 
+	{
+		Serial.print("Error code status: 0x");
+		Serial.println(status, HEX);
+	}
+	return;
 }
 
 #endif

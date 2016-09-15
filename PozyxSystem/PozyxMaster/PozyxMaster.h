@@ -1,13 +1,11 @@
 #ifndef POZYX_MULTITAG_POS_ORIENTATION_SERIAL_MASTER
 #define POZYX_MULTITAG_POS_ORIENTATION_SERIAL_MASTER
 
-#include "PozyxSystem.h"
-#include <Arduino.h>
-#include "CPozyx.h"
-#include "CPozyx_definitions.h"
-
 #define ARDUINO 10609
 #define BAUD_RATE 115200
+
+#include "PozyxSystem.h"
+#include <Arduino.h>
 
 namespace PozyxMaster 
 {
@@ -32,10 +30,6 @@ namespace PozyxMaster
 	extern uint16_t tags[POZYX_NUM_REMOTE_TAGS]; // remote tag network IDs
 	extern uint8_t status;
 	extern boolean_t setupStatus;
-
-	void errorBlinkLed();
-
-	void errorSetStatus(uint8_t defaultErrorCode);
 
 	void handleError(const String& message, uint8_t defaultErrorCode);
 

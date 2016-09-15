@@ -5,8 +5,6 @@
 
 #include "PozyxSystem.h"
 #include <Arduino.h>
-#include "CPozyx.h"
-#include "CPozyx_definitions.h"
 
 #define TAG_IS_SLAVE1 0
 #define TAG_IS_SLAVE2 1
@@ -27,10 +25,12 @@ namespace PozyxSlave
 
 	extern coordinates_t position;
 
+	void handleError(const String& message, uint8_t defaultErrorCode);
+
+	void resetVariables();
+
+	boolean_t manualAnchorCalibration();
+
 	boolean_t pozyxSetup();
-
-	void errorBlinkLed();
-
-	void errorSetStatus(uint8_t defaultErrorCode = POZYX_ERROR_GENERAL);
 }
 #endif

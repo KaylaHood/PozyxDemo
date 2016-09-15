@@ -95,10 +95,6 @@ extern "C" void __cxa_pure_virtual() {;}
 #define cli()
 #include <PozyxMaster.ino>
 #include <..\Shared\BitArray.h>
-#include <..\Shared\CPozyx.h>
-#include <..\Shared\CPozyx_core.cpp>
-#include <..\Shared\CPozyx_definitions.h>
-#include <..\Shared\CPozyx_lib.cpp>
 #include <PozyxMaster.h>
 #include <..\Shared\PozyxSystem.h>
 #endif
