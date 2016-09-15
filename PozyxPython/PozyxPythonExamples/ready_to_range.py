@@ -1,3 +1,6 @@
+# AUTHOR: LAURENT VAN ACKER
+# COMPANY : POZYX LABS
+
 from pypozyx import *
 
 port = '/dev/ttyACM0'

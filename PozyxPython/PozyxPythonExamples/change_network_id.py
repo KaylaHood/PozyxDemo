@@ -1,3 +1,6 @@
+# AUTHOR: LAURENT VAN ACKER
+# COMPANY : POZYX LABS
+
 from pypozyx import *
 from pypozyx.definitions.registers import *
 # remote_id = 0x6000

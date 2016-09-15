@@ -1,3 +1,6 @@
+# AUTHOR: LAURENT VAN ACKER
+# COMPANY : POZYX LABS
+
 from pypozyx import *
 from time import sleep
 import serial.tools.list_ports
