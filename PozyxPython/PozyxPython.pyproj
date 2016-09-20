@@ -3,9 +3,9 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{e30b9bb1-be34-4ad5-bc17-562fd7251dbd}</ProjectGuid>
+    <ProjectGuid>{496d8479-bec4-4f4e-b1b8-70c411e988e0}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>connect_remote.py</StartupFile>
+    <StartupFile>PozyxPositioning\connect_remote.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -21,7 +21,14 @@
     <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="connect_remote.py" />
+    <Compile Include="PozyxPositioning\connect_remote.py" />
+    <Compile Include="PozyxPythonExamples\change_network_id.py" />
+    <Compile Include="PozyxPythonExamples\ready_to_localize.py" />
+    <Compile Include="PozyxPythonExamples\ready_to_range.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="PozyxPositioning" />
+    <Folder Include="PozyxPythonExamples" />
   </ItemGroup>
   <Import Project="$(PtvsTargetsFile)" Condition="Exists($(PtvsTargetsFile))" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="!Exists($(PtvsTargetsFile))" />
